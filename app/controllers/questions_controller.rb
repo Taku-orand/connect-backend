@@ -2,13 +2,13 @@ class QuestionsController < ApplicationController
   def index
     questions = Question.all
     tags = Tag.all
-    render json: { "question" => questions,"tag" => tags}
+    render json: { "questions" => questions,"tags" => tags}
   end
 
   def show
     question = Question.find(params[:id])
     question_tags = question.tags
-    render json: { "question" => question,"tag" => question_tags}
+    render json: { "questions" => question,"tags" => question_tags}
   end
 
   def update

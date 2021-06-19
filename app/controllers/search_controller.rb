@@ -4,7 +4,7 @@ class SearchController < ApplicationController
     tags = Tag.all
     title = params[:title]
     questions = Question.find_by(title: title)
-    render json: {"tag"=>tags, "question"=>questions}
+    render json: {"tags"=>tags, "questions"=>questions}
   end
 
   #タグ検索
@@ -14,7 +14,7 @@ class SearchController < ApplicationController
     tag = Tag.find(params[:tag_id]) 
     #tagに関連するquestionを全取得
     questions = tag.questions.all
-    render json: {"tag" => tags, "question"=>questions}
+    render json: {"tags" => tags, "questions"=>questions}
   end
 
   def createTag

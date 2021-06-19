@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
   def index
     questions = Question.all
     answers = Answer.all
-    render json: { "question" => questions,"answer" => answers}
+    render json: { "questions" => questions,"answers" => answers}
   end
 
   def create
