@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 2021_06_14_133525) do
     t.boolean "anonymous"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "student_id"
+    t.bigint "user_id"
     t.bigint "question_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
-    t.index ["student_id"], name: "index_answers_on_student_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_133525) do
     t.boolean "anonymous"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "student_id"
-    t.index ["student_id"], name: "index_questions_on_student_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "taggings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
