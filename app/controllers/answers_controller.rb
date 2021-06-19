@@ -1,9 +1,10 @@
 class AnswersController < ApplicationController
-  def index
-    questions = Question.all
-    answers = Answer.all
-    render json: { "questions" => questions,"answers" => answers}
-  end
+  # def index
+  #   questions = Question.all
+  #   answers = Answer.all
+  #   if questions and answers and 
+  #   render json: { "questions" => questions,"answers" => answers}
+  # end
 
   def create
     answer = receiveBody

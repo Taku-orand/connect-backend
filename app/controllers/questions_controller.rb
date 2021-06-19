@@ -2,13 +2,23 @@ class QuestionsController < ApplicationController
   def index
     questions = Question.all
     tags = Tag.all
-    render json: { "questions" => questions,"tags" => tags}
+    if questions and tags
+      return json: { "questions" => questions,"tags" => tags}
+    else
+      render  json: { message: "質問またはタグを受け取れませんでした。"}
+    end
   end
 
   def show
     question = Question.find(params[:id])
+    answers = Answer.find_by(question_id: params[:id])
     question_tags = question.tags
-    render json: { "questions" => question,"tags" => question_tags}
+    tags = Tag.all
+    if question and question_tags and answers and tags
+      render json: { "question" => question, "tags" => tags, "question_tags" => question_tags, "answers"=> answers}
+    else 
+      render  json: { message: "質問または返信を受け取れませんでした。"}
+    end
   end
 
   def update
