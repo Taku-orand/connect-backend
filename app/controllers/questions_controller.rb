@@ -3,9 +3,9 @@ class QuestionsController < ApplicationController
     questions = Question.all
     tags = Tag.all
     if questions and tags
-      return json: { "questions" => questions,"tags" => tags}
+      render json: { "questions" => questions,"tags" => tags}
     else
-      render  json: { message: "質問またはタグを受け取れませんでした。"}
+      render json: { message: "質問またはタグを受け取れませんでした。"}
     end
   end
 
