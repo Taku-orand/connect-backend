@@ -19,7 +19,7 @@ class TagsController < ApplicationController
     end
   end
   
-  def createTag
+  def create
     target = receiveBody
     begin
       target.save!
@@ -30,7 +30,7 @@ class TagsController < ApplicationController
     end
   end
 
-  def deleteTag
+  def delete
     tagId = params[:id]
     target = Tag.find(tagId[:id])
     begin
@@ -42,7 +42,7 @@ class TagsController < ApplicationController
     end
   end
 
-  def updateTag
+  def update
     tagId = params[:id]
     tag = receiveBody
     target = Tag.find(tagId[:id])
