@@ -21,9 +21,13 @@ class QuestionsController < ApplicationController
 
   def update
     question_id = params[:id]
-    question = receiveBody
+    question_details = receiveBody
+    question = question_details[:question]
     target = Question.find_by(id: question_id)
-    #begin
+    puts "↓↓↓ qestion ↓↓↓"
+    puts question[:title]
+    puts "↑↑↑ qestion　↑↑↑"
+    begin
       target.update!(
         title: question[:title],
         content: question[:content],

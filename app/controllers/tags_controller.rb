@@ -43,6 +43,6 @@ class TagsController < ApplicationController
   end
   
   def receiveBody
-   JSON.parse(request.body.read, {:symbolize_names => true})
+    JSON.parse(request.body.read, {:symbolize_names => true})
   end
 end
