@@ -20,7 +20,8 @@ class TagsController < ApplicationController
   end
   
   def create
-    target = receiveBody
+    tag = receiveBody
+    target = Tag.new(tag)
     begin
       target.save!
       puts "保存成功"
@@ -30,9 +31,9 @@ class TagsController < ApplicationController
     end
   end
 
-  def delete
-    tagId = params[:id]
-    target = Tag.find(tagId[:id])
+  def destroy
+    tag_id = params[:id]
+    target = Tag.find_by(id: tag_id)
     begin
       target.destroy!
       puts "保存成功"
@@ -43,9 +44,9 @@ class TagsController < ApplicationController
   end
 
   def update
-    tagId = params[:id]
+    tag_id = params[:id]
     tag = receiveBody
-    target = Tag.find(tagId[:id])
+    target = Tag.find_by(id: tag_id)
     begin
       target.update!(name: tag[:name])
     rescue ActiveRecord::RecordInvalid=> exception
