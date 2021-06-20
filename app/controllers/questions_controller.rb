@@ -1,9 +1,8 @@
 class QuestionsController < ApplicationController
   def index
-    questions = Question.all
-    tags = Tag.all
-    if questions and tags
-      render json: { "questions" => questions,"tags" => tags}
+    questions = Question.all.order(created_at: "DESC")
+    if questions
+      render json: { "questions" => questions }
     else
       render json: { message: "質問またはタグを受け取れませんでした。"}
     end
@@ -14,8 +13,8 @@ class QuestionsController < ApplicationController
     answers = Answer.find_by(question_id: params[:id])
     question_tags = question.tags
     tags = Tag.all
-    if question and question_tags and answers and tags
-      render json: { "question" => question, "tags" => tags, "question_tags" => question_tags, "answers"=> answers}
+    if question
+      render json: { "question" => question}
     else 
       render  json: { message: "質問または返信を受け取れませんでした。"}
     end

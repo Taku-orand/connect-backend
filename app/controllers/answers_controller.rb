@@ -1,11 +1,7 @@
 class AnswersController < ApplicationController
-  # def index
-  #   questions = Question.all
-  #   answers = Answer.all
-  #   if questions and answers and 
-  #   render json: { "questions" => questions,"answers" => answers}
-  # end
-
+  def show
+    answers = Answer.find_by(question_id: params[:id])
+    
   def create
     answer = receiveBody
     target = Answer.new(answer)

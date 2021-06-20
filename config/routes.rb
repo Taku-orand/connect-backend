@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   
   # #answer用
   get 'answers/index' => 'answers#index'
+  get 'answers/show/:id' => 'answers#show'
   post 'answers/create' => 'answers#create'
   patch 'answers/update/:id' => 'answers#update'
   delete 'answers/destroy/:id' => 'answers#destroy'
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
   
   #tag用
   get 'tags/index' => 'tags#index'
+  get 'tags/show/:id' => 'tags#show'
   post 'tags/create' => 'tags#create'
   patch 'tags/update/:id' => 'tags#update'
   delete 'tags/destroy/:id' => 'tags#destroy'
