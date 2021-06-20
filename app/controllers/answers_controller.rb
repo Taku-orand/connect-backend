@@ -57,8 +57,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    answerId = params[:id]
-    target = Answer.find(answerId[:id])
+    answer_id = params[:id]
+    target = Answer.find_by(id: answer_id)
     begin
       target.destroy!
       puts "削除に成功しました"
