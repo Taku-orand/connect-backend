@@ -20,15 +20,14 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    questionId = params[:id]
+    question_id = params[:id]
     question = receiveBody
-    target = Question.find(questionId[:id])
-    begin
+    target = Question.find_by(id: question_id)
+    #begin
       target.update!(
         title: question[:title],
         content: question[:content],
-        anonymous: question[:anonymous],
-        like: question[:like]
+        anonymous: question[:anonymous]
       )
       puts "変更できました"
     rescue ActiveRecord::RecordInvalid=> exception
