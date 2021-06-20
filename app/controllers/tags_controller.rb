@@ -2,9 +2,20 @@ class TagsController < ApplicationController
   def index
     tags = Tag.all
     if tags
-      render json: {"tags"=>tags}
+      render json: { tags: tags }
     else
-      render json: {"message"=>"タグを取得できませんでした"}
+      render json: { message: "タグを取得できませんでした。" }
+    end
+  end
+
+  def show
+    question_id = params[:id]
+    question = Question.find_by(id: question_id)
+    question_tags = question.tags
+    if question_tags
+      render json: { tags: question_tags }
+    else
+      render json: { message: "タグを取得できませんでした。" }
     end
   end
   
@@ -39,8 +50,6 @@ class TagsController < ApplicationController
       target.update!(name: tag[:name])
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
-    else
-      
     end
   end
   
