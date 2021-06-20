@@ -9,8 +9,25 @@ class AnswersController < ApplicationController
   end
     
   def create
-    answer = receiveBody
-    target = Answer.new(answer)
+    details = receiveBody
+    question = details[:question]
+    answer = details[:answer]
+    user = details[:user]
+
+    puts "//////////"
+    puts details
+    puts user
+    puts question
+    puts "//////////"
+
+    target = Answer.new(
+      content: answer[:content],
+      like: answer[:like],
+      anonymous: answer[:anonymous],
+      question_id: question[:id],
+      user_id: user[:id],
+    )
+
     begin
       target.save!
       puts "保存に成功しました"
