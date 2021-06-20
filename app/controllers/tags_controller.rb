@@ -39,8 +39,6 @@ class TagsController < ApplicationController
       target.update!(name: tag[:name])
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
-    else
-      
     end
   end
   
