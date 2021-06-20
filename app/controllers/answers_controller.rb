@@ -1,8 +1,8 @@
 class AnswersController < ApplicationController
   def show
     answers = Answer.where(question_id: params[:id])
-    if answear
-      render json: { "questions" => answear }
+    if answers
+      render json: { "answers" => answers }
     else
       render json: { message: "回答を取得できませんでした。"}
     end
