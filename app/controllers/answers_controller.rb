@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   def show
-    answers = Answer.find_by(question_id: params[:id])
+    answers = Answer.where(question_id: params[:id])
+  end
     
   def create
     answer = receiveBody

@@ -10,13 +10,12 @@ class QuestionsController < ApplicationController
 
   def show
     question = Question.find(params[:id])
-    answers = Answer.find_by(question_id: params[:id])
     question_tags = question.tags
     tags = Tag.all
     if question
       render json: { "question" => question}
     else 
-      render  json: { message: "質問または返信を受け取れませんでした。"}
+      render json: { message: "質問または返信を受け取れませんでした。"}
     end
   end
 

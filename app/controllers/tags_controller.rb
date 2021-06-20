@@ -7,6 +7,7 @@ class TagsController < ApplicationController
       render json: {"message"=>"タグを取得できませんでした"}
     end
   end
+  
   def createTag
     target = receiveBody
     begin
