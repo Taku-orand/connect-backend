@@ -39,12 +39,10 @@ class TagsController < ApplicationController
       target.update!(name: tag[:name])
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
-    else
-      
     end
   end
   
   def receiveBody
-   JSON.parse(request.body.read, {:symbolize_names => true})
+    JSON.parse(request.body.read, {:symbolize_names => true})
   end
 end

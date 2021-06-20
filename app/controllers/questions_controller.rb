@@ -20,15 +20,15 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    questionId = params[:id]
-    question = receiveBody
-    target = Question.find(questionId[:id])
+    question_id = params[:id]
+    question_details = receiveBody
+    question = question_details[:question]
+    target = Question.find_by(id: question_id)
     begin
       target.update!(
         title: question[:title],
         content: question[:content],
-        anonymous: question[:anonymous],
-        like: question[:like]
+        anonymous: question[:anonymous]
       )
       puts "変更できました"
     rescue ActiveRecord::RecordInvalid=> exception
@@ -38,8 +38,17 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    question = receiveBody
-    target = question.new(question)
+    details = receiveBody
+    question = details[:question]
+    user = details[:user]
+    target = Question.new(
+      title: question[:title],
+      content: question[:content],
+      anonymous: question[:anonymous],
+      solved: question[:solved],
+      user_id: user[:id]
+    )
+
     begin
       target.save!
       puts "保存成功"
@@ -50,8 +59,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    questionId = params[:id]
-    target = Question.find(questionId[:id])
+    question_id = params[:id]
+    target = Question.find_by(id: question_id)
     begin
       target.destroy!
       puts "削除に成功しました"
