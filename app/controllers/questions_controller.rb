@@ -19,6 +19,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def user
+    user_id = params[:id]
+    questions = Question.where(user_id: user_id)
+    if questions
+      render json: { "questions" => questions}
+    else 
+      render json: { message: "質問を受け取れませんでした。"}
+    end
+  end
+
   def update
     question_id = params[:id]
     question_details = receiveBody
