@@ -22,11 +22,7 @@ class QuestionsController < ApplicationController
   def user
     questions = Question.where(user_id: 1)
     if questions
-<<<<<<< HEAD
       render json: { "questions" => questions, "current user" => current_user}
-=======
-      render json: { "questions" => questions }
->>>>>>> develop
     else 
       render json: { message: "質問を受け取れませんでした。" }
     end
