@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   include ActionController::Helpers
 
+  skip_before_action :verify_authenticity_token, raise: false
+
   helper_method :signin!, :current_user
 
   def signin!
