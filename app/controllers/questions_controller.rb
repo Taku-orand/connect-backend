@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
     if questions
       render json: { "questions" => questions }
     else
-      render json: { message: "質問またはタグを受け取れませんでした。"}
+      render json: { message: "質問またはタグを受け取れませんでした。" }
     end
   end
 
@@ -13,18 +13,22 @@ class QuestionsController < ApplicationController
     question_tags = question.tags
     tags = Tag.all
     if question
-      render json: { "question" => question}
+      render json: { "question" => question }
     else 
-      render json: { message: "質問または返信を受け取れませんでした。"}
+      render json: { message: "質問または返信を受け取れませんでした。" }
     end
   end
 
   def user
     questions = Question.where(user_id: 1)
     if questions
+<<<<<<< HEAD
       render json: { "questions" => questions, "current user" => current_user}
+=======
+      render json: { "questions" => questions }
+>>>>>>> develop
     else 
-      render json: { message: "質問を受け取れませんでした。"}
+      render json: { message: "質問を受け取れませんでした。" }
     end
   end
 
@@ -53,6 +57,7 @@ class QuestionsController < ApplicationController
     target = Question.new(
       title: question[:title],
       content: question[:content],
+      like: question[:like],
       anonymous: question[:anonymous],
       solved: question[:solved],
       user_id: user[:id]

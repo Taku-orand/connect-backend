@@ -25,7 +25,10 @@ module Backend
     # APIモードでのセッションを有効にする。
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
-    config.action_dispatch.cookies_same_site_protection = :none
     config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware
+
+
+    # クロスサイトでの通信でCookieの送信を制御します。
+    # config.action_dispatch.cookies_same_site_protection = :none
   end
 end
