@@ -20,10 +20,9 @@ class QuestionsController < ApplicationController
   end
 
   def user
-    user_id = current_user.id
-    questions = Question.where(user_id: user_id)
+    questions = Question.where(user_id: 1)
     if questions
-      render json: { "questions" => questions}
+      render json: { "questions" => questions, "current user" => current_user}
     else 
       render json: { message: "質問を受け取れませんでした。"}
     end
