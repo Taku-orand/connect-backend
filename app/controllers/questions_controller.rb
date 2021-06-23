@@ -54,6 +54,7 @@ class QuestionsController < ApplicationController
     target = Question.new(
       title: question[:title],
       content: question[:content],
+      like: question[:like],
       anonymous: question[:anonymous],
       solved: question[:solved],
       user_id: user[:id]
