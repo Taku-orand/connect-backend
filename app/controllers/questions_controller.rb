@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
   end
 
   def user
-    user_id = params[:id]
+    user_id = current_user.id
     questions = Question.where(user_id: user_id)
     if questions
       render json: { "questions" => questions}

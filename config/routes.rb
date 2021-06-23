@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   #question用
   get 'questions/index' => 'questions#index'
   get 'questions/show/:id' => 'questions#show'
-  get 'questions/user/:id' => 'questions#user'
+  get 'questions/user' => 'questions#user'
   post 'questions/create' => 'questions#create'
   patch 'questions/update/:id' => 'questions#update'
   delete 'questions/destroy/:id' => 'questions#destroy'
