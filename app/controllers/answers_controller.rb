@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
     if answers
       render json: { "answers" => answers }
     else
-      render json: { message: "回答を取得できませんでした。"}
+      render json: { message: "回答を取得できませんでした。" }
     end
   end
     
@@ -13,12 +13,6 @@ class AnswersController < ApplicationController
     question = details[:question]
     answer = details[:answer]
     user = details[:user]
-
-    puts "//////////"
-    puts details
-    puts user
-    puts question
-    puts "//////////"
 
     target = Answer.new(
       content: answer[:content],
