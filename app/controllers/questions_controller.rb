@@ -34,12 +34,16 @@ class QuestionsController < ApplicationController
     question = question_details[:question]
     target = Question.find_by(id: question_id)
     begin
-      target.update!(
-        title: question[:title],
-        content: question[:content],
-        anonymous: question[:anonymous]
-      )
-      puts "変更できました"
+      if target.user_id == current_user[:id] then
+        target.update!(
+          title: question[:title],
+          content: question[:content],
+          anonymous: question[:anonymous]
+        )
+        puts "変更できました"
+      else
+        puts "投稿者以外は内容に変更を加えることができません"
+      end
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
       puts "変更できませんでした"   
