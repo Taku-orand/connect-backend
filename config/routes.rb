@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   post 'questions/create' => 'questions#create'
   patch 'questions/update/:id' => 'questions#update'
   delete 'questions/destroy/:id' => 'questions#destroy'
+
+  #like用
+  post 'like/add/:id' => 'like#add'
   
   #tag用
   get 'tags/index' => 'tags#index'
