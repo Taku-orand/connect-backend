@@ -76,9 +76,13 @@ class QuestionsController < ApplicationController
     question_id = params[:id]
     target = Question.find_by(id: question_id)
     begin
-      target.destroy!
-      puts "削除に成功しました"
-      # 保存成功時の処理
+      if target.user_id == current_user[:id] then
+        target.destroy!
+        puts "削除に成功しました"
+        # 保存成功時の処理
+      else
+        puts "投稿者以外は質問を削除することができません"
+      end
     rescue ActiveRecord::RecordInvalid => e
       puts e
       puts "削除に失敗しました"
