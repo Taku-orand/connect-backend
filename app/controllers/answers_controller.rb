@@ -1,14 +1,27 @@
 class AnswersController < ApplicationController
-  # def index
-  #   questions = Question.all
-  #   answers = Answer.all
-  #   if questions and answers and 
-  #   render json: { "questions" => questions,"answers" => answers}
-  # end
-
+  def show
+    answers = Answer.where(question_id: params[:id])
+    if answers
+      render json: { "answers" => answers }
+    else
+      render json: { message: "回答を取得できませんでした。" }
+    end
+  end
+    
   def create
-    answer = receiveBody
-    target = Answer.new(answer)
+    details = receiveBody
+    question = details[:question]
+    answer = details[:answer]
+    user = details[:user]
+
+    target = Answer.new(
+      content: answer[:content],
+      like: answer[:like],
+      anonymous: answer[:anonymous],
+      question_id: question[:id],
+      user_id: user[:id],
+    )
+
     begin
       target.save!
       puts "保存に成功しました"
@@ -21,29 +34,37 @@ class AnswersController < ApplicationController
   end
 
   def update
-    answerId = params[:id]
-    answer = receiveBody
-    target = Answer.find(answerId[:id])
+    answer_id = params[:id]
+    details = receiveBody
+    answer = details[:answer]
+    target = Answer.find_by(id: answer_id)
     begin
-      target.update!(
-        content: answer[:content],
-        anonymous: answer[:anonymous],
-        like:answer[:like]
-      )
-      puts "変更できました"
-    rescue ActiveRecord::RecordInvalid=> exception
+      if target.user_id == current_user[:id] then
+        target.update!(
+          content: answer[:content],
+          anonymous: answer[:anonymous],
+        )
+        puts "変更できました"
+      else
+        puts "投稿者以外は内容に変更を加えることができません"        
+      end
+    rescue ActiveRecord::RecordInvalid => exception
       puts exception
       puts "変更できませんでした" 
     end
   end
 
   def destroy
-    answerId = params[:id]
-    target = Answer.find(answerId[:id])
+    answer_id = params[:id]
+    target = Answer.find_by(id: answer_id)
     begin
-      target.destroy!
-      puts "削除に成功しました"
-      # 保存成功時の処理
+      if target.user_id == current_user[:id] then
+        target.destroy!
+        puts "削除に成功しました"
+        # 保存成功時の処理
+      else
+        puts "投稿者以外は質問を削除することができません"
+      end
     rescue ActiveRecord::RecordInvalid => e
       puts e
       puts "削除に失敗しました"

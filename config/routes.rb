@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   #タグで検索 例）/tags/2/search
-  resources :tags do
-    get 'search', to: 'search#searchByTag'
-  end
+  get 'tags/:id/search', to: 'search#searchByTag'
   
   # #文字列検索
   get 'search/:title', to: 'search#searchByWord'
@@ -15,6 +13,7 @@ Rails.application.routes.draw do
   
   # #answer用
   get 'answers/index' => 'answers#index'
+  get 'answers/show/:id' => 'answers#show'
   post 'answers/create' => 'answers#create'
   patch 'answers/update/:id' => 'answers#update'
   delete 'answers/destroy/:id' => 'answers#destroy'
@@ -22,6 +21,7 @@ Rails.application.routes.draw do
   #question用
   get 'questions/index' => 'questions#index'
   get 'questions/show/:id' => 'questions#show'
+  get 'questions/user' => 'questions#user'
   post 'questions/create' => 'questions#create'
   patch 'questions/update/:id' => 'questions#update'
   delete 'questions/destroy/:id' => 'questions#destroy'
@@ -33,5 +33,11 @@ Rails.application.routes.draw do
   get 'sort/like_asc' => 'sort#like_asc'
   get 'sort/solved' => 'sort#solved'
   get 'sort/unsolved' => 'sort#unsolved'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
+  #tag用
+  get 'tags/index' => 'tags#index'
+  get 'tags/show/:id' => 'tags#show'
+  post 'tags/create' => 'tags#create'
+  patch 'tags/update/:id' => 'tags#update'
+  delete 'tags/destroy/:id' => 'tags#destroy'
 end
