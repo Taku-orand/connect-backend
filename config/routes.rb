@@ -25,6 +25,14 @@ Rails.application.routes.draw do
   post 'questions/create' => 'questions#create'
   patch 'questions/update/:id' => 'questions#update'
   delete 'questions/destroy/:id' => 'questions#destroy'
+
+  #sort用
+  get 'sort/date_desc' => 'sort#date_desc'
+  get 'sort/date_asc' => 'sort#date_asc'
+  get 'sort/like_desc' => 'sort#like_desc'
+  get 'sort/like_asc' => 'sort#like_asc'
+  get 'sort/solved' => 'sort#solved'
+  get 'sort/unsolved' => 'sort#unsolved'
   
   #tag用
   get 'tags/index' => 'tags#index'
