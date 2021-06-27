@@ -11,7 +11,6 @@ class QuestionsController < ApplicationController
   def show
     question = Question.find(params[:id])
     question_tags = question.tags
-    tags = Tag.all
     if question
       render json: { "question" => question }
     else 
