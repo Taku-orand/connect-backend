@@ -49,13 +49,23 @@ class QuestionsController < ApplicationController
   def create
     details = receiveBody
     question = details[:question]
-    user = User.find(current_user[:id])
+    user = User.find(1)
     target = user.questions.new(question)
 
     begin
       target.save!
     rescue ActiveRecord::RecordInvalid => exception
       puts exception
+    end
+
+    question_id = target.id
+    like = Like.new(count: 0, question_id: question_id)
+    begin
+      like.save!
+      puts "likeの保存ができました"
+    rescue ActiveRecord::RecordInvalid => exception
+      puts exception
+      puts "likeの保存ができませんでした"
     end
   end
 
