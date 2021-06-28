@@ -2,14 +2,26 @@ class TagsController < ApplicationController
   def index
     tags = Tag.all
     if tags
-      render json: {"tags"=>tags}
+      render json: { tags: tags }
     else
-      render json: {"message"=>"タグを取得できませんでした"}
+      render json: { message: "タグを取得できませんでした。" }
+    end
+  end
+
+  def show
+    question_id = params[:id]
+    question = Question.find_by(id: question_id)
+    question_tags = question.tags
+    if question_tags
+      render json: { tags: question_tags }
+    else
+      render json: { message: "タグを取得できませんでした。" }
     end
   end
   
-  def createTag
-    target = receiveBody
+  def create
+    tag = receiveBody
+    target = Tag.new(tag)
     begin
       target.save!
       puts "保存成功"
@@ -19,9 +31,9 @@ class TagsController < ApplicationController
     end
   end
 
-  def deleteTag
-    tagId = params[:id]
-    target = Tag.find(tagId[:id])
+  def destroy
+    tag_id = params[:id]
+    target = Tag.find_by(id: tag_id)
     begin
       target.destroy!
       puts "保存成功"
@@ -31,10 +43,10 @@ class TagsController < ApplicationController
     end
   end
 
-  def updateTag
-    tagId = params[:id]
+  def update
+    tag_id = params[:id]
     tag = receiveBody
-    target = Tag.find(tagId[:id])
+    target = Tag.find_by(id: tag_id)
     begin
       target.update!(name: tag[:name])
     rescue ActiveRecord::RecordInvalid=> exception

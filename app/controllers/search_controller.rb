@@ -16,11 +16,4 @@ class SearchController < ApplicationController
     questions = tag.questions.all
     render json: {"tags" => tags, "questions"=>questions}
   end
-
-  def createTag
-  end
-  def updateTag
-  end 
-  def deleteTag
-  end
 end
