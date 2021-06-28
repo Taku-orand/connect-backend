@@ -51,17 +51,18 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    body = receiveBody
+    details = receiveBody
+    question = details[:question]
     user = User.find(current_user[:id])
-    question = body[:question]
     target = user.questions.new(question)
+    question_id = target.id
+    like = Like.new(count: 0, question_id: question_id)
     begin
       target.save!
-      puts "保存成功"
+      like.save!
       render json: {posted: true}
     rescue ActiveRecord::RecordInvalid => exception
       puts exception
-      puts "保存失敗"
       render json: {posted: false}
     end
   end

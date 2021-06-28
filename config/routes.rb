@@ -26,6 +26,10 @@ Rails.application.routes.draw do
   patch 'questions/update/:id' => 'questions#update'
   delete 'questions/destroy/:id' => 'questions#destroy'
 
+
+  #like用
+  post 'like/add/:id' => 'like#add'
+
   #sort用
   get 'sort/date_desc' => 'sort#date_desc'
   get 'sort/date_asc' => 'sort#date_asc'
