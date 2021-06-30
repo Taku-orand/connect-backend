@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   def index
-    questions = Question.all.order(created_at: "DESC")
+    questions = Question.joins(:like).select('questions.*, likes.count, likes.id as like_id').order(created_at: "DESC")
     if questions
       render json: { "questions" => questions }
     else
