@@ -54,8 +54,7 @@ class QuestionsController < ApplicationController
     question = details[:question]
     user = User.find(current_user[:id])
     target = user.questions.new(question)
-    question_id = target.id
-    like = Like.new(count: 0, question_id: question_id)
+    like = target.build_like(count: 0)
     begin
       target.save!
       like.save!
