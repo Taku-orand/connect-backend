@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
 
   def user
     puts current_user
-    questions = Question.where(user_id: current_user.id)
+    questions = Question.where(user_id: current_user.id).order(created_at: "DESC")
     if questions
       render json: { get_my_questions: true, questions: questions}
     else 
