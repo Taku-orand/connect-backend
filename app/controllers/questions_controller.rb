@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   def index
-    questions = Question.joins(:like).select('questions.*, likes.count, likes.id as like_id').order(created_at: "DESC")
+    questions = Question.joins(:user, :like).select('questions.*, users.name as user_name, likes.count as like_count, likes.id as like_id').order(created_at: "DESC")
     if questions
       render json: { "questions" => questions }
     else
@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
 
   def user
     puts current_user
-    questions = Question.where(user_id: current_user.id).order(created_at: "DESC")
+    questions = Question.joins(:user, :like).select('questions.*, users.name as user_name, likes.count as like_count, likes.id as like_id').where(user_id: current_user.id).order(created_at: "DESC")
     if questions
       render json: { get_my_questions: true, questions: questions}
     else 
