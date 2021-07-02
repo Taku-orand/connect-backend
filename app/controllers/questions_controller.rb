@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    question = Question.joins(:like).select('questions.*, likes.count, likes.id as like_id').find(params[:id])
+    question = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').find(params[:id])
     if question
       render json: { "question" => question }
     else 
