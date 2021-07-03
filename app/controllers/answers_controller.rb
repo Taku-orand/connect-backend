@@ -14,12 +14,6 @@ class AnswersController < ApplicationController
     answer = details[:answer]
     user = details[:user]
 
-    puts "//////////"
-    puts details
-    puts user
-    puts question
-    puts "//////////"
-
     target = Answer.new(
       content: answer[:content],
       like: answer[:like],
