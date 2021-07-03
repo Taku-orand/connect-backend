@@ -37,7 +37,8 @@ class QuestionsController < ApplicationController
         target.update!(
           title: question[:title],
           content: question[:content],
-          anonymous: question[:anonymous]
+          anonymous: question[:anonymous],
+          solved: question[:solved]
         )
         puts "変更できました"
         render json: {update_question: true}
