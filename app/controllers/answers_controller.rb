@@ -10,26 +10,16 @@ class AnswersController < ApplicationController
     
   def create
     details = receiveBody
-    question = details[:question]
     answer = details[:answer]
-    user = details[:user]
-
-    target = Answer.new(
-      content: answer[:content],
-      like: answer[:like],
-      anonymous: answer[:anonymous],
-      question_id: question[:id],
-      user_id: user[:id],
-    )
+    user = User.find(1)
+    target = user.answers.new(answer)
+    like = target.build_like(count: 0)
 
     begin
       target.save!
-      puts "保存に成功しました"
-      # 保存成功時の処理
+      like.save
     rescue ActiveRecord::RecordInvalid => e
       puts e
-      puts "保存に失敗しました"
-      # 保存失敗時の処理
     end
   end
 

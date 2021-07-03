@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   def index
     questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(created_at: "DESC")
+    
     if questions
       render json: { "questions" => questions }
     else
@@ -10,6 +11,7 @@ class QuestionsController < ApplicationController
 
   def show
     question = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').find(params[:id])
+    
     if question
       render json: { "question" => question }
     else 
@@ -20,6 +22,7 @@ class QuestionsController < ApplicationController
   def user
     puts current_user
     questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(user_id: current_user.id).order(created_at: "DESC")
+    
     if questions
       render json: { get_my_questions: true, questions: questions}
     else 
@@ -32,6 +35,7 @@ class QuestionsController < ApplicationController
     question_details = receiveBody
     question = question_details[:question]
     target = Question.find_by(id: question_id)
+
     begin
       if target.user_id == current_user[:id] then
         target.update!(
@@ -58,6 +62,7 @@ class QuestionsController < ApplicationController
     user = User.find(current_user[:id])
     target = user.questions.new(question)
     like = target.build_like(count: 0)
+
     begin
       target.save!
       like.save!
@@ -71,6 +76,7 @@ class QuestionsController < ApplicationController
   def destroy
     question_id = params[:id]
     target = Question.find_by(id: question_id)
+
     begin
       if target.user_id == current_user[:id] then
         target.destroy!
