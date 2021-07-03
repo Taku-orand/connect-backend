@@ -1,8 +1,7 @@
 class AnswersController < ApplicationController
   def show
     question_id = params[:id]
-    answers = Answer.joins(:user, :like).select('answers.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(like_count: "DESC")
-    answers = answers.where(question_id: question_id)
+    answers = Answer.joins(:user, :like).select('answers.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(question_id: question_id).order(like_count: "DESC")
 
     if answers
       render json: { "answers" => answers }
