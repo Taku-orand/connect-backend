@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   def index
-    questions = Question.joins(:like).select('questions.*, likes.count, likes.id as like_id').order(created_at: "DESC")
+    questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(created_at: "DESC")
     if questions
       render json: { "questions" => questions }
     else
@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    question = Question.joins(:like).select('questions.*, likes.count, likes.id as like_id').find(params[:id])
+    question = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').find(params[:id])
     if question
       render json: { "question" => question }
     else 
@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
 
   def user
     puts current_user
-    questions = Question.where(user_id: current_user.id)
+    questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(user_id: current_user.id).order(created_at: "DESC")
     if questions
       render json: { get_my_questions: true, questions: questions}
     else 
@@ -37,15 +37,18 @@ class QuestionsController < ApplicationController
         target.update!(
           title: question[:title],
           content: question[:content],
-          anonymous: question[:anonymous]
+          anonymous: question[:anonymous],
+          solved: question[:solved]
         )
         puts "変更できました"
+        render json: {update_question: true}
       else
         puts "投稿者以外は内容に変更を加えることができません"
       end
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
       puts "変更できませんでした"   
+      render json: {update_question: false}
     end
   end
 
