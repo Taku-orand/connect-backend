@@ -40,12 +40,14 @@ class QuestionsController < ApplicationController
           anonymous: question[:anonymous]
         )
         puts "変更できました"
+        render json: {update_question: true}
       else
         puts "投稿者以外は内容に変更を加えることができません"
       end
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
       puts "変更できませんでした"   
+      render json: {update_question: false}
     end
   end
 
