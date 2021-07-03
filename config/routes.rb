@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get '/signed_in', to: 'sessions#signed_in?'
   
   # #answer用
-  get 'answers/index' => 'answers#index'
   get 'answers/show/:id' => 'answers#show'
   post 'answers/create' => 'answers#create'
   patch 'answers/update/:id' => 'answers#update'
