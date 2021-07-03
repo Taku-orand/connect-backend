@@ -1,6 +1,9 @@
 class AnswersController < ApplicationController
   def show
-    answers = Answer.where(question_id: params[:id])
+    question_id = params[:id]
+    answers = Answer.joins(:user, :like).select('answers.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(like_count: "DESC")
+    answers = answers.where(question_id: question_id)
+
     if answers
       render json: { "answers" => answers }
     else
@@ -11,15 +14,17 @@ class AnswersController < ApplicationController
   def create
     details = receiveBody
     answer = details[:answer]
-    user = User.find(1)
+    user = User.find(current_user.id)
     target = user.answers.new(answer)
     like = target.build_like(count: 0)
 
     begin
       target.save!
-      like.save
+      like.save!
+      render json: {created_answer: true}
     rescue ActiveRecord::RecordInvalid => e
       puts e
+      render json: {created_answer: false}
     end
   end
 
