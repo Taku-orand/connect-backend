@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
     if answers
       render json: { "answers" => answers }
     else
-      render json: { message: "回答を取得できませんでした。" }
+      render json: { message: "回答を取得できませんでした。"}
     end
   end
     
@@ -39,16 +39,12 @@ class AnswersController < ApplicationController
     answer = details[:answer]
     target = Answer.find_by(id: answer_id)
     begin
-      if target.user_id == current_user[:id] then
-        target.update!(
-          content: answer[:content],
-          anonymous: answer[:anonymous],
-        )
-        puts "変更できました"
-      else
-        puts "投稿者以外は内容に変更を加えることができません"        
-      end
-    rescue ActiveRecord::RecordInvalid => exception
+      target.update!(
+        content: answer[:content],
+        anonymous: answer[:anonymous],
+      )
+      puts "変更できました"
+    rescue ActiveRecord::RecordInvalid=> exception
       puts exception
       puts "変更できませんでした" 
     end
@@ -58,13 +54,9 @@ class AnswersController < ApplicationController
     answer_id = params[:id]
     target = Answer.find_by(id: answer_id)
     begin
-      if target.user_id == current_user[:id] then
-        target.destroy!
-        puts "削除に成功しました"
-        # 保存成功時の処理
-      else
-        puts "投稿者以外は質問を削除することができません"
-      end
+      target.destroy!
+      puts "削除に成功しました"
+      # 保存成功時の処理
     rescue ActiveRecord::RecordInvalid => e
       puts e
       puts "削除に失敗しました"
