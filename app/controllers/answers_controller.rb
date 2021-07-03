@@ -11,15 +11,17 @@ class AnswersController < ApplicationController
   def create
     details = receiveBody
     answer = details[:answer]
-    user = User.find(1)
+    user = User.find(current_user[:id])
     target = user.answers.new(answer)
     like = target.build_like(count: 0)
 
     begin
       target.save!
-      like.save
+      like.save!
+      render json: {created_answer: true}
     rescue ActiveRecord::RecordInvalid => e
       puts e
+      render json: {created_answer: false}
     end
   end
 
