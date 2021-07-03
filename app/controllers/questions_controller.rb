@@ -10,10 +10,10 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    question = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').find(params[:id])
-    
+    question = Question.select('questions.*, users.id AS user_id, users.name AS user_name, likes.count AS like_id,likes.count AS like_count').joins(:like, :user).where(id: params[:id])
+    tags = question[0].tags.all
     if question
-      render json: { "question" => question }
+      render json: question.to_json(include: :tags)
     else 
       render json: { message: "質問または返信を受け取れませんでした。" }
     end
