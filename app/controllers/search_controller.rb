@@ -4,9 +4,9 @@ class SearchController < ApplicationController
     word = params[:word]
     questions = Question.where('title like ? OR content like ?', "%#{word}%", "%#{word}%").order(created_at: "DESC")
     if questions.length != 0
-      render json: {"questions"=>questions}
+      render json: {"questions"=>questions, "searched"=>true}
     else
-      render json: {"message"=>"検索ワードを見つけられませんでした。"}
+      render json: {"searched"=>false}
     end
   end
 
