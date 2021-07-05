@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   #タグで検索 例）/tags/2/search
-  get 'tags/:id/search', to: 'search#searchByTag'
+  get 'tags/:id', to: 'search#searchByTag'
   
   # #文字列検索
   get 'search/', to: 'search#searchByWord'
