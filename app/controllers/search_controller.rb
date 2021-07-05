@@ -3,10 +3,10 @@ class SearchController < ApplicationController
   def searchByWord
     word = params[:word]
     questions = Question.where('title like ? OR content like ?', "%#{word}%", "%#{word}%").order(created_at: "DESC")
-    if questions.length != 0
-      render json: {"questions"=>questions, "searched"=>true}
+    if questions.length > 0
+      render json: {"questions"=>questions, "searched_by_word"=>true}
     else
-      render json: {"searched"=>false}
+      render json: {"searched_by_word"=>false}
     end
   end
 
