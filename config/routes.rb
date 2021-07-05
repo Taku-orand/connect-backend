@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'tags/:id/search', to: 'search#searchByTag'
   
   # #文字列検索
-  get 'search/:title', to: 'search#searchByWord'
+  get 'search/', to: 'search#searchByWord'
   
   # サインイン関連
   post '/signup', to: 'registrations#signup'
