@@ -1,10 +1,13 @@
 class SearchController < ApplicationController
   #文字列検索
   def searchByWord
-    tags = Tag.all
-    title = params[:title]
-    questions = Question.find_by(title: title)
-    render json: {"tags"=>tags, "questions"=>questions}
+    word = params[:word]
+    questions = Question.where('title like ? OR content like ?', "%#{word}%", "%#{word}%").order(created_at: "DESC")
+    if questions.length != 0
+      render json: {"questions"=>questions, "searched"=>true}
+    else
+      render json: {"searched"=>false}
+    end
   end
 
   #タグ検索
