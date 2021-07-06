@@ -6,7 +6,7 @@ class LikeController < ApplicationController
 
         begin
             target.save!
-            render json: {add_like: true}
+            render json: {add_like: true, like_count: target.count}
         rescue ActiveRecord::RecordInvalid => exception
             puts exception
         end
