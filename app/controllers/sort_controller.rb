@@ -1,6 +1,6 @@
 class SortController < ApplicationController
     def date_desc
-        questions = Question.all.order(created_at: :desc)
+        questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(created_at: "DESC")
         if questions
             render json: { "questions" => questions}
         else
@@ -9,7 +9,7 @@ class SortController < ApplicationController
     end
 
     def date_asc
-        questions = Question.all.order(created_at: :asc)
+        questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(created_at: "ASC")
         if questions
             render json: { "questions" => questions}
         else
@@ -18,7 +18,7 @@ class SortController < ApplicationController
     end
 
     def like_desc
-        questions = Question.all.order(like: :desc)
+        questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(like_count: "DESC")
         if questions
             render json: { "questions" => questions}
         else
@@ -27,7 +27,7 @@ class SortController < ApplicationController
     end
 
     def like_asc
-        questions = Question.all.order(like: :asc)
+        questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(like_count: "ASC")
         if questions
             render json: { "questions" => questions}
         else
@@ -36,7 +36,7 @@ class SortController < ApplicationController
     end
 
     def solved
-        questions = Question.where(solved: '1')
+        questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(solved: true).order(created_at: "DESC")
         if questions
             render json: { "questions" => questions}
         else
@@ -45,7 +45,7 @@ class SortController < ApplicationController
     end
 
     def unsolved
-        questions = Question.where(solved: '0')
+        questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(solved: false).order(created_at: "DESC")
         if questions
             render json: { "questions" => questions}
         else
