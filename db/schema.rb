@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_03_083357) do
+ActiveRecord::Schema.define(version: 2021_07_07_062118) do
 
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "content"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2021_07_03_083357) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
+  end
+
   create_table "taggings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.bigint "tag_id", null: false
@@ -66,6 +75,7 @@ ActiveRecord::Schema.define(version: 2021_07_03_083357) do
     t.string "name"
   end
 
+  add_foreign_key "requests", "users"
   add_foreign_key "taggings", "questions"
   add_foreign_key "taggings", "tags"
 end
