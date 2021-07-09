@@ -33,15 +33,18 @@ class AnswersController < ApplicationController
     answer = details[:answer]
     target = Answer.find_by(id: answer_id)
     begin
-      target.update!(
+      target.update(
         content: answer[:content],
         anonymous: answer[:anonymous],
       )
       puts "変更できました"
+      updated_answer = true
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
       puts "変更できませんでした" 
+      updated_answer = false
     end
+    render json: {"updated_answer" => updated_answer}
   end
 
   def destroy
