@@ -31,14 +31,18 @@ class AnswersController < ApplicationController
     answer_id = params[:id]
     details = receiveBody
     answer = details[:answer]
-    target = Answer.find_by(id: answer_id)
+    target = Answer.find(answer_id)
     begin
-      target.update(
-        content: answer[:content],
-        anonymous: answer[:anonymous],
-      )
-      puts "変更できました"
-      updated_answer = true
+      if target.user_id == current_user.id then
+        target.update!(
+          content: answer[:content],
+          anonymous: answer[:anonymous]
+        )
+        puts "変更できました"
+        updated_answer = true
+      else
+        puts "投稿者以外は内容に変更を加えることができません"
+      end
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
       puts "変更できませんでした" 
@@ -49,11 +53,15 @@ class AnswersController < ApplicationController
 
   def destroy
     answer_id = params[:id]
-    target = Answer.find_by(id: answer_id)
+    target = Answer.find(answer_id)
     begin
-      target.destroy!
-      puts "削除に成功しました"
-      # 保存成功時の処理
+      if target.user_id == current_user.id then
+        target.destroy!
+        puts "削除に成功しました"
+        # 保存成功時の処理
+      else
+        puts "投稿者以外は内容に変更を加えることができません"
+      end
     rescue ActiveRecord::RecordInvalid => e
       puts e
       puts "削除に失敗しました"
