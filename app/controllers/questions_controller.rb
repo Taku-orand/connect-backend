@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   def index
-    questions = Question.all.order(created_at: "DESC")
+    questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(created_at: "DESC")
+    
     if questions
       render json: { "questions" => questions }
     else
@@ -20,7 +21,8 @@ class QuestionsController < ApplicationController
 
   def user
     puts current_user
-    questions = Question.where(user_id: current_user.id)
+    questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(user_id: current_user.id).order(created_at: "DESC")
+    
     if questions
       render json: { get_my_questions: true, questions: questions}
     else 
@@ -33,35 +35,40 @@ class QuestionsController < ApplicationController
     question_details = receiveBody
     question = question_details[:question]
     target = Question.find_by(id: question_id)
+
     begin
       if target.user_id == current_user[:id] then
         target.update!(
           title: question[:title],
           content: question[:content],
-          anonymous: question[:anonymous]
+          anonymous: question[:anonymous],
+          solved: question[:solved]
         )
         puts "変更できました"
+        render json: {update_question: true}
       else
         puts "投稿者以外は内容に変更を加えることができません"
       end
     rescue ActiveRecord::RecordInvalid=> exception
       puts exception
       puts "変更できませんでした"   
+      render json: {update_question: false}
     end
   end
 
   def create
-    body = receiveBody
+    details = receiveBody
+    question = details[:question]
     user = User.find(current_user[:id])
-    question = body[:question]
     target = user.questions.new(question)
+    like = target.build_like(count: 0)
+
     begin
       target.save!
-      puts "保存成功"
+      like.save!
       render json: {posted: true}
     rescue ActiveRecord::RecordInvalid => exception
       puts exception
-      puts "保存失敗"
       render json: {posted: false}
     end
   end
@@ -69,6 +76,7 @@ class QuestionsController < ApplicationController
   def destroy
     question_id = params[:id]
     target = Question.find_by(id: question_id)
+
     begin
       if target.user_id == current_user[:id] then
         target.destroy!

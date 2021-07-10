@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   #タグで検索 例）/tags/2/search
-  get 'tags/:id/search', to: 'search#searchByTag'
+  get 'tag/:id', to: 'search#searchByTag'
   
   # #文字列検索
-  get 'search/:title', to: 'search#searchByWord'
+  get 'search/', to: 'search#searchByWord'
   
   # サインイン関連
   post '/signup', to: 'registrations#signup'
@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get '/signed_in', to: 'sessions#signed_in?'
   
   # #answer用
-  get 'answers/index' => 'answers#index'
   get 'answers/show/:id' => 'answers#show'
   post 'answers/create' => 'answers#create'
   patch 'answers/update/:id' => 'answers#update'
@@ -25,6 +24,10 @@ Rails.application.routes.draw do
   post 'questions/create' => 'questions#create'
   patch 'questions/update/:id' => 'questions#update'
   delete 'questions/destroy/:id' => 'questions#destroy'
+
+
+  #like用
+  post 'like/add/:id' => 'like#add'
 
   #sort用
   get 'sort/date_desc' => 'sort#date_desc'
