@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_07_03_083357) do
 
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "content"
+    t.text "content"
     t.boolean "anonymous"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2021_07_03_083357) do
     t.integer "question_id"
     t.integer "answer_id"
   end
+  
 
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
