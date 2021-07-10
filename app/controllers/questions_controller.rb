@@ -78,7 +78,7 @@ class QuestionsController < ApplicationController
     target = Question.find(question_id)
 
     begin
-      if target.user_id == 1 then
+      if target.user_id == current_user.id then
         target.destroy!
         puts "削除に成功しました"
         # 保存成功時の処理
