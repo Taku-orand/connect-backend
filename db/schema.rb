@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2021_07_10_030921) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
+  end
+
   create_table "taggings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.bigint "tag_id", null: false
@@ -66,6 +75,7 @@ ActiveRecord::Schema.define(version: 2021_07_10_030921) do
     t.string "name"
   end
 
+  add_foreign_key "requests", "users"
   add_foreign_key "taggings", "questions"
   add_foreign_key "taggings", "tags"
 end

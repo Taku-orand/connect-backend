@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   patch 'questions/update/:id' => 'questions#update'
   delete 'questions/destroy/:id' => 'questions#destroy'
 
+  #feedback用
+  get 'requests/index' => 'requests#index'
+  get 'requests/show/:id' => 'requests#show'
+  post 'requests/create' => 'requests#create'
 
   #like用
   post 'like/add/:id' => 'like#add'
