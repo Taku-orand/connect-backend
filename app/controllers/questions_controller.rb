@@ -34,10 +34,10 @@ class QuestionsController < ApplicationController
     question_id = params[:id]
     question_details = receiveBody
     question = question_details[:question]
-    target = Question.find_by(id: question_id)
+    target = Question.find(question_id)
 
     begin
-      if target.user_id == current_user[:id] then
+      if target.user_id == current_user.id then
         target.update!(
           title: question[:title],
           content: question[:content],
@@ -59,7 +59,7 @@ class QuestionsController < ApplicationController
   def create
     details = receiveBody
     question = details[:question]
-    user = User.find(current_user[:id])
+    user = User.find(current_user.id)
     target = user.questions.new(question)
     like = target.build_like(count: 0)
 
@@ -75,10 +75,10 @@ class QuestionsController < ApplicationController
 
   def destroy
     question_id = params[:id]
-    target = Question.find_by(id: question_id)
+    target = Question.find(question_id)
 
     begin
-      if target.user_id == current_user[:id] then
+      if target.user_id == 1 then
         target.destroy!
         puts "削除に成功しました"
         # 保存成功時の処理
