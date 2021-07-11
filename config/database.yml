@@ -1,0 +1,19 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: 
+  host: localhost
+
+development:
+  <<: *default
+  database: backend_development
+
+test:
+  <<: *default
+  database: backend_test
+
+production:
+  # herokuの環境変数をmysqlからmysql2に変更しなければエラーが出ます。
+  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
