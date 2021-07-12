@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_07_10_030921) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.boolean "solved"
+    t.integer "like_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
