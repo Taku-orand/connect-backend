@@ -23,14 +23,8 @@ class RequestsController < ApplicationController
     def create
         details = receiveBody
         request = details[:request]
-        user = User.find(1)
+        user = User.find(current_user.id)
         target = user.requests.new(request)
-        
-        puts "==="
-        puts details
-        puts target.title
-        puts target.content
-        puts "==="
 
         begin
             target.save!
