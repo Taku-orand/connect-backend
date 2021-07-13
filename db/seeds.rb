@@ -7,29 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create(email: "test@test.com", password_digest:"testtest")
-User.create(email: "aa@aa.com", password_digest:"testtest")
-User.create(email: "bb@bb.com", password_digest:"testtest")
-User.create(email: "cc@cc.com", password_digest:"testtest")
-User.create(email: "dd@dd.com", password_digest:"testtest")
-
-Question.create(title:"test1", content:"test_content1", user_id:1,  anonymous:true, solved: true)
-Question.create(title:"test2", content:"test_content2", user_id:1, anonymous:false, solved: false)
-Question.create(title:"test3", content:"test_content3", user_id:2, anonymous:true, solved: true)
-Question.create(title:"test4", content:"test_content4", user_id:3, anonymous:false, solved: false)
-Question.create(title:"test5", content:"test_content5", user_id:4, anonymous:true, solved: true)
-
-Like.create(count:0, question_id:1)
-Like.create(count:0, question_id:2)
-Like.create(count:0, question_id:3)
-Like.create(count:0, question_id:4)
-Like.create(count:0, question_id:5)
-
-Answer.create(user_id: 2, question_id: 1, content: "test", like: 0, anonymous: false)
-Answer.create(user_id: 3, question_id: 1, content: "test", like: 0, anonymous: true)
-Answer.create(user_id: 4, question_id: 2, content: "test", like: 0, anonymous: false)
-Answer.create(user_id: 1, question_id: 3, content: "test", like: 0, anonymous: true)
-Answer.create(user_id: 5, question_id: 1, content: "test", like: 0, anonymous: false)
-Answer.create(user_id: 1, question_id: 1, content: "test", like: 0, anonymous: true)
 
 Tag.create(name: "testTag1")
 Tag.create(name: "testTag2")
