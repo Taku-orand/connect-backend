@@ -1,18 +1,18 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8mb4
+  adapter: <%= ENV['ADAPTER'] %>
+  encoding: <%= ENV['ENCODING'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: 
-  host: localhost
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+  host: <%= ENV['HOST'] %>
 
 development:
   <<: *default
-  database: backend_development
+  database: <%= ENV['DATABASE'] %>
 
 test:
   <<: *default
-  database: backend_test
+  database: <%= ENV['DATABASE'] %>
 
 production:
   # herokuの環境変数をmysqlからmysql2に変更しなければエラーが出ます。

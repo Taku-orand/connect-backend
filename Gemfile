@@ -60,3 +60,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # CookieのSameSite属性をNone, Secure属性をtrueにする
 gem "rails_same_site_cookie", "~> 0.1.8"
+
+#  .env作成用
+gem 'dotenv-rails'
