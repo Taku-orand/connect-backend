@@ -29,6 +29,6 @@ module Backend
 
 
     # クロスサイトでの通信でCookieの送信を制御します。
-    config.action_dispatch.cookies_same_site_protection = :none
+    # config.action_dispatch.cookies_same_site_protection = :none
   end
 end
