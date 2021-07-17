@@ -1,8 +1,8 @@
 class RegistrationsController < ApplicationController
   def signup
-    @user = User.new(registrations_params)
+    user = User.new(registrations_params)
 
-    if @user.save
+    if user.save
       signin!
       render json: { status: :created, signed_up: true, user: @user }
     else

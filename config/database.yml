@@ -1,0 +1,19 @@
+default: &default
+  adapter: <%= ENV['ADAPTER'] %>
+  encoding: <%= ENV['ENCODING'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+  host: <%= ENV['HOST'] %>
+
+development:
+  <<: *default
+  database: <%= ENV['DATABASE'] %>
+
+test:
+  <<: *default
+  database: <%= ENV['DATABASE'] %>
+
+production:
+  # herokuの環境変数をmysqlからmysql2に変更しなければエラーが出ます。
+  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
