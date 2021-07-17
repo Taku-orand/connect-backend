@@ -16,10 +16,11 @@ class SearchController < ApplicationController
     tag = Tag.find(params[:id]) 
     #tagに関連するquestionを全取得
     questions = tag.questions.all
+    p questions
     if questions.length > 0
-      render json: {"questions" => questions, "searched_by_tag" => true}
+      render json: {"questions" => questions, "get_question" => true}
     else
-      render json: {"searched_by_tag" => false}
+      render json: {"get_question" => false}
     end
   end
 end

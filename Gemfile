@@ -63,3 +63,5 @@ gem "rails_same_site_cookie", "~> 0.1.8"
 
 #  .env作成用
 gem 'dotenv-rails'
+# seed用
+gem 'seed-fu'
