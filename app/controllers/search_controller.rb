@@ -2,9 +2,14 @@ class SearchController < ApplicationController
   #文字列検索
   def searchByWord
     word = params[:word]
-    questions = Question.where('title like ? OR content like ?', "%#{word}%", "%#{word}%").order(created_at: "DESC")
-    if questions.length > 0
-      render json: {"questions"=>questions, "searched_by_word"=>true}
+    words = word.split(/[[:blank:]]+/)
+
+    words.each do |word|
+      @questions = Question.where('title like ? OR content like ?', "%#{word}%", "%#{word}%").order(created_at: "DESC")
+    end
+
+    if @questions
+      render json: {"questions"=>@questions, "searched_by_word"=>true}
     else
       render json: {"searched_by_word"=>false}
     end
