@@ -65,3 +65,5 @@ gem "rails_same_site_cookie", "~> 0.1.8"
 gem 'dotenv-rails'
 # seed用
 gem 'seed-fu'
+# 国際化
+gem 'rails-i18n'
