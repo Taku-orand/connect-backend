@@ -3,13 +3,14 @@ class SearchController < ApplicationController
   def searchByWord
     word = params[:word]
     words = word.split(/[[:blank:]]+/)
+    questions = []
 
     words.each do |word|
-      @questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where('title like ? OR content like ?', "%#{word}%", "%#{word}%").order(created_at: "DESC")
+      questions += Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where('title LIKE ? OR content LIKE ?', "%#{word}%", "%#{word}%").order(created_at: "DESC")
     end
 
-    if @questions
-      render json: {"questions"=>@questions, "searched_by_word"=>true}
+    if questions
+      render json: {"questions"=>questions, "searched_by_word"=>true}
     else
       render json: {"searched_by_word"=>false}
     end
