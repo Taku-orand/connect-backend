@@ -7,10 +7,8 @@ class SearchController < ApplicationController
     words.each do |word|
       @questions = Question.where('title like ? OR content like ?', "%#{word}%", "%#{word}%").order(created_at: "DESC")
     end
-  
-    puts @questions
 
-    if @questions.length > 0
+    if @questions
       render json: {"questions"=>@questions, "searched_by_word"=>true}
     else
       render json: {"searched_by_word"=>false}
