@@ -12,8 +12,12 @@ class ApplicationController < ActionController::API
   def current_user
     if session[:user_id]
       @current_user ||= User.find(session[:user_id])
+      logger.debug("aaaaaaaaaaaaa")
+      logger.debug(@current_user.id)
     else
       @current_user = User.find(0) 
+      logger.debug("bbbbbbbbbbbbb")
+      logger.debug(@current_user.id)
     end
   end
 end
