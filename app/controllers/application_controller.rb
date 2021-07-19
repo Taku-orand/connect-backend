@@ -14,10 +14,12 @@ class ApplicationController < ActionController::API
       @current_user ||= User.find(session[:user_id])
       logger.debug("aaaaaaaaaaaaa")
       logger.debug(@current_user.id)
+      puts @current_user.id
     else
       @current_user = User.find(0) 
       logger.debug("bbbbbbbbbbbbb")
       logger.debug(@current_user.id)
+      puts @current_user.id
     end
   end
 end
