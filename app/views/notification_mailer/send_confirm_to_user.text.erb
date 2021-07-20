@@ -1,5 +1,16 @@
-<%= @user.name %> 様
+※このメールはシステムからの自動返信です
 
-○○への会員登録が完了しました。
-マイページはこちら
-<%= user_url(@user) %>
+<%= @a_user[:name] %>から回答が届いています
+
+Re: <%= @answer[:content] %>
+
+以下のURLで回答を確認することができます。
+https://aizu-connect.herokuapp.com/question/detail/<%= @question[:id] %>
+------------------------------------------------------------------------------------
+Connect 会津大学のための知恵袋
+https://aizu-connect.herokuapp.com/
+
+バグや直した方がいい点など、ご意見お待ちしております。
+https://aizu-connect.herokuapp.com/request
+
+※メール配信の停止はマイページから設定できます。
