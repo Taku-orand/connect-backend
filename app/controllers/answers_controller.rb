@@ -16,10 +16,12 @@ class AnswersController < ApplicationController
     user = User.find(current_user.id)
     target = user.answers.new(answer)
     like = target.build_like(count: 0)
-
+    question = Question.find(target.question_id)
+    question_user = User.find(question.user_id)
     begin
       target.save!
       like.save!
+      NotificationMailer.send_confirm_to_user(question_user).deliver
       render json: {created_answer: true}
     rescue ActiveRecord::RecordInvalid => e
       puts e
