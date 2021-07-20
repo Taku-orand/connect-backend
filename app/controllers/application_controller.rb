@@ -11,15 +11,15 @@ class ApplicationController < ActionController::API
 
   def current_user
     if session[:user_id]
-      # puts "aaaaaaaaaaa"
-      # test = User.find(session[:user_id])
-      # puts test.id
-      @current_user ||= User.find(session[:user_id])
+      puts "aaaaaaaaaaa"
+      test = User.find(session[:user_id])
+      puts test.id
+      return @current_user ||= User.find(session[:user_id])
     else
-      # puts "bbbbbbbbbbbb"
-      # test = User.find(0) 
-      # puts test.id
-      @current_user = User.find(0) 
+      puts "bbbbbbbbbbbb"
+      test = User.find(0) 
+      puts test.id
+      return @current_user = User.find(0) 
     end
   end
 end
