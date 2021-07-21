@@ -203,3 +203,7 @@ end
 Tag.seed do |t|
   t.name = "概論"
 end
+
+Tag.seed do |t|
+  t.name = "アルバイト"
+end
