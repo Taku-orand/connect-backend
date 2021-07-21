@@ -21,7 +21,7 @@ class SearchController < ApplicationController
     #/tags/2/search の場合、id２のタグ取得
     tag = Tag.find(params[:id]) 
     #tagに関連するquestionを全取得
-    questions = tag.questions.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').all
+    questions = tag.questions.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').all.order(created_at: "DESC")
     p questions
     if questions.length > 0
       render json: {"questions" => questions, "get_question" => true}
