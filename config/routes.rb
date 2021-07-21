@@ -47,4 +47,7 @@ Rails.application.routes.draw do
   post 'tags/create' => 'tags#create'
   patch 'tags/update/:id' => 'tags#update'
   delete 'tags/destroy/:id' => 'tags#destroy'
+
+  # notification用
+  get 'notifications/index' => 'notifications#index'
 end

@@ -68,3 +68,5 @@ gem 'dotenv-rails'
 gem 'seed-fu'
 # 国際化
 gem 'rails-i18n'
+# ページネーション用
+gem 'kaminari'

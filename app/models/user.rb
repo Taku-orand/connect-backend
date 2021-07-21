@@ -12,4 +12,8 @@ class User < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
   has_many :requests, dependent: :destroy
+  # 自分の通知
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  # 他の人の通知
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 end
