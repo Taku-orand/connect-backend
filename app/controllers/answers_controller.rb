@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
       render json: { message: "回答を取得できませんでした。"}
     end
   end
-    
+  
   def create
     details = receiveBody
     answer = details[:answer]
@@ -22,7 +22,7 @@ class AnswersController < ApplicationController
     begin
       target.save!
       like.save!
-      question.create_notification_answer!(answer_user, target.id)
+      question.create_notification_answer!(answer_user, target.content, question_user)
       NotificationMailer.send_confirm_to_user(question, question_user, answer_user, answer).deliver
       render json: {created_answer: true}
     rescue ActiveRecord::RecordInvalid => e

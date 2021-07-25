@@ -36,12 +36,11 @@ ActiveRecord::Schema.define(version: 2021_07_20_133602) do
     t.integer "visitor_id", null: false
     t.integer "visited_id", null: false
     t.integer "question_id"
-    t.integer "answer_id"
-    t.string "action", default: "", null: false
+    t.string "visitor_name", default: "", null: false
+    t.string "answer", default: "", null: false
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["answer_id"], name: "index_notifications_on_answer_id"
     t.index ["question_id"], name: "index_notifications_on_question_id"
     t.index ["visited_id"], name: "index_notifications_on_visited_id"
     t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
@@ -55,6 +54,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_133602) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.boolean "solved"
+    t.integer "like_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
