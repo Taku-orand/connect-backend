@@ -50,4 +50,5 @@ Rails.application.routes.draw do
 
   # notification用
   get 'notifications/index' => 'notifications#index'
+  delete 'notifications/destroy' => 'notifications#destroy'
 end

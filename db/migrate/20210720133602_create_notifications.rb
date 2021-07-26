@@ -5,7 +5,8 @@ class CreateNotifications < ActiveRecord::Migration[6.1]
         t.integer :visited_id, null: false
         t.integer :question_id
         t.string :visitor_name, default: '', null: false
-        t.string :answer, default: '', null: false
+        t.text :answer_content, null: false
+        t.text :question_content, null: false
         t.boolean :checked, default: false, null: false
         t.timestamps
       end

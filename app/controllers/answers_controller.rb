@@ -22,8 +22,10 @@ class AnswersController < ApplicationController
     begin
       target.save!
       like.save!
-      question.create_notification_answer!(answer_user, target.content, question_user)
-      NotificationMailer.send_confirm_to_user(question, question_user, answer_user, answer).deliver
+      if question.user_id != current_user.id
+        question.create_notification_answer!(answer_user, question.content, target.content, question_user)
+        NotificationMailer.send_confirm_to_user(question, question_user, answer_user, answer).deliver
+      end
       render json: {created_answer: true}
     rescue ActiveRecord::RecordInvalid => e
       puts e

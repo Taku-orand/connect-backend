@@ -37,7 +37,8 @@ ActiveRecord::Schema.define(version: 2021_07_20_133602) do
     t.integer "visited_id", null: false
     t.integer "question_id"
     t.string "visitor_name", default: "", null: false
-    t.string "answer", default: "", null: false
+    t.text "answer_content", null: false
+    t.text "question_content", null: false
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
