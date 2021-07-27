@@ -1,9 +1,10 @@
 class RegistrationsController < ApplicationController
+  # サインアップ処理
   def signup
     @user = User.new(registrations_params)
 
     if @user.save
-      signin!
+      signin! #セッションにユーザー情報を置く
       render json: { status: :created, signed_up: true, user: @user }
     else
       render json: {
@@ -14,7 +15,6 @@ class RegistrationsController < ApplicationController
   end
 
   private
-
   def registrations_params
       params.require(:user).permit(:email, :name, :password, :password_confirmation)
   end 

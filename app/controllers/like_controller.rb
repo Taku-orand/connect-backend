@@ -1,4 +1,5 @@
 class LikeController < ApplicationController
+    # like数を増やす処理
     def add
         like_id = params[:id]
         target = Like.find_by(id: like_id)

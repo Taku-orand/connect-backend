@@ -9,16 +9,13 @@ class ApplicationController < ActionController::API
     session[:user_id] = @user.id
   end
 
+  # 現在のユーザーを取得
   def current_user
     if session[:user_id]
-      puts "aaaaaaaaaaa"
-      test = User.find(session[:user_id])
-      puts test.id
+      # 現在のユーザーを返す
       return @current_user ||= User.find(session[:user_id])
     else
-      puts "bbbbbbbbbbbb"
-      test = User.find(0) 
-      puts test.id
+      # サインイン、サインアップしていなければゲストとして扱う
       return @current_user = User.find(0) 
     end
   end

@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  # 全ての質問を作成日降順で返す
   def index
     questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(created_at: "DESC")
     
@@ -9,7 +10,8 @@ class QuestionsController < ApplicationController
     end
   end
 
-    def show
+  # 質問の詳細を返す
+  def show
     question = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').find(params[:id])
     
     if question
@@ -18,6 +20,7 @@ class QuestionsController < ApplicationController
       render json: { message: "質問または返信を受け取れませんでした。" }
     end
   end
+
 
   def user
     puts current_user
@@ -30,6 +33,7 @@ class QuestionsController < ApplicationController
     end
   end
 
+  # 質問を編集する
   def update
     question_id = params[:id]
     question_details = receiveBody
@@ -37,6 +41,7 @@ class QuestionsController < ApplicationController
     target = Question.find(question_id)
 
     begin
+      # 投稿主と現在のユーザーが一致するときのみ、編集可能
       if target.user_id == current_user.id then
         target.update!(
           title: question[:title],
@@ -44,18 +49,17 @@ class QuestionsController < ApplicationController
           anonymous: question[:anonymous],
           solved: question[:solved]
         )
-        puts "変更できました"
         render json: {update_question: true}
       else
-        puts "投稿者以外は内容に変更を加えることができません"
+        # 投稿者以外は内容に変更を加えることができません"
       end
     rescue ActiveRecord::RecordInvalid=> exception
-      puts exception
-      puts "変更できませんでした"   
+      # エラーにより、編集できなかった場合
       render json: {update_question: false}
     end
   end
 
+  # 質問を投稿
   def create
     details = receiveBody
     question = details[:question]
@@ -68,27 +72,26 @@ class QuestionsController < ApplicationController
       like.save!
       render json: {posted: true}
     rescue ActiveRecord::RecordInvalid => exception
-      puts exception
       render json: {posted: false}
     end
   end
 
+  # 質問削除(質問の削除はしない方針)
   def destroy
     question_id = params[:id]
     target = Question.find(question_id)
 
     begin
       if target.user_id == current_user.id then
+        # 削除成功時の処理
         target.destroy!
-        puts "削除に成功しました"
-        # 保存成功時の処理
+        render json: {"delete_question": true}
       else
-        puts "投稿者以外は質問を削除することができません"
+        # 投稿者以外は質問を削除することができません
       end
     rescue ActiveRecord::RecordInvalid => e
-      puts e
-      puts "削除に失敗しました"
       # 保存失敗時の処理
+      render json: {"delete_question": false}
     end
   end
 
