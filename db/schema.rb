@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_30_041543) do
+ActiveRecord::Schema.define(version: 2021_07_30_050801) do
 
   create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "content"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2021_07_30_041543) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -82,6 +84,7 @@ ActiveRecord::Schema.define(version: 2021_07_30_041543) do
     t.string "name"
   end
 
+  add_foreign_key "events", "users"
   add_foreign_key "requests", "users"
   add_foreign_key "taggings", "questions"
   add_foreign_key "taggings", "tags"
