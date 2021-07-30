@@ -28,7 +28,7 @@
 
 ## 質問投稿方法
  1. サインインしますと、右下の 質問する を押してください。
- 2. 質問投稿ページでは、　匿名での投稿、タグ選択、質問内容ではmardown記法が使えます。
+ 2. 質問投稿ページでは、　匿名での投稿、タグ選択、質問内容ではmarkdown記法が使えます。
  3. 質問を書き終えますと、質問投稿　を押してください。
  4. 質問一覧に投稿した質問が表示され、無事投稿完了です。
 ![質問投稿](https://user-images.githubusercontent.com/69229592/127594026-93784e1e-f1db-40c0-865a-90d11b771552.gif)
@@ -51,6 +51,7 @@
 - 友達がいなくて相談できない
 - 対面で質問するのが恥ずかしい
 - コロナが怖くて人と対面で話すのが怖い
+
 これらの課題を解決する方法としてweb上で質問をし、悩みを解消することがいいと思いました。
 
 # 要件定義
@@ -120,3 +121,33 @@
 
 # 画面設計
 <img width="914" alt="スクリーンショット 2021-07-30 12 07 43" src="https://user-images.githubusercontent.com/69229592/127593933-58f2b097-d153-42d9-b2f5-d396c085f26a.png">
+
+# API
+| METHOD | URL | DESCRIPTION |
+|:---:|:---:|:---:|
+| GET | /signed_in | 現在のユーザーを取得します。 |
+| POST | /signup | ユーザーを新規登録します。 |
+| POST | /signin | ユーザーの認証を行います。 |
+| DELETE | /signout | サインアウトします。 |
+| GET | /questions/index | 質問を取得します。 |
+| GET | /questions/show/:id | 質問内容を取得します。 |
+| GET | /questions/user | 過去に自分が投稿した質問を取得します |
+| POST |　/questions/create | 質問を投稿します。 |
+| DELETE | /questions/destroy/:id | 質問を削除します。(質問は削除しないようにしています)|
+| PATCH | /questions/update/:id | 質問を編集します。 |
+| GET | /answers/show/:id | 質問に対する返信を取得します。 |
+| POST | /answers/create | 返信を投稿します。 |
+| DELETE | /answers/destroy/:id | 返信を削除します。(返信は削除されないようにしています) |
+| PATCH | /answers/update/:id | 返信を編集します。 |
+| GET | /requests/index | 意見ボックスページでユーザーからのリクエスト（要望）を取得します。 |
+| POST | /requests/create | リクエストを投稿します。 |
+| POST | /like/add/:id | like数を増やします。 |
+| GET | /sort/date_desc | 質問一覧で質問を作成日降順で取得します。 |
+| GET | /sort/date_asc | 質問一覧で質問を作成日昇順で取得します。 |
+| GET | /sort/like_desc | 質問一覧で質問をlike数多い順で取得します。 |
+| GET | /sort/like_asc | 質問一覧で質問をlike数少ない順で取得します。 |
+| GET | /sort/solved | 質問一覧で解決済みの質問を取得します。 |
+| GET | /sort/unsolved | 質問一覧で未解決の質問を取得します。 |
+| GET | /tags/index | タグを取得します。　|
+| GET | /tag/:id | タグの絞り込みをします。 |
+| GET | /search/ | 検索した文字列から質問を取得します。 |
