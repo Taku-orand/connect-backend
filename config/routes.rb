@@ -47,4 +47,8 @@ Rails.application.routes.draw do
   post 'tags/create' => 'tags#create'
   patch 'tags/update/:id' => 'tags#update'
   delete 'tags/destroy/:id' => 'tags#destroy'
+
+  # event用
+  get 'events/index', to: 'events#index'
+  post 'events/new', to: 'events#create'
 end
