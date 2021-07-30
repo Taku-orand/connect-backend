@@ -6,7 +6,7 @@
 
 アプリケーション： https://aizu-connect.herokuapp.com
 
-バックエンド(Github)： https://github.com/Takuyazzz/connect-backend
+フロントエンド(Github)： https://github.com/Takuyazzz/connect-frontend
 
 # テスト用アカウント
 
@@ -120,16 +120,3 @@
 
 # 画面設計
 <img width="914" alt="スクリーンショット 2021-07-30 12 07 43" src="https://user-images.githubusercontent.com/69229592/127593933-58f2b097-d153-42d9-b2f5-d396c085f26a.png">
-
-# ローカルでの動作方法
-https://github.com/Takuyazzz/connect-frontend, https://github.com/Takuyazzz/connect-backendからクローンしてください。
- - frontendの場合
- 1. npm install
- 2. npm run serve
- - backendの場合
- envファイルに必要事項を書いてください。
- 1. bundle install
- 2. rails db:create
- 3. rails db:migrate
- 4. rails db:seed_fu
- 5. rails s
