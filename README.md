@@ -111,7 +111,7 @@
   - トークルーム
   - グループトーク
 
-#　クラス図
+# クラス図
 <img width="485" alt="クラス図" src="https://user-images.githubusercontent.com/69229592/127596904-da29db03-7a1a-4c5e-9a6c-272494c89661.png">
 
 # ER図
