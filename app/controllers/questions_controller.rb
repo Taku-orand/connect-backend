@@ -1,10 +1,9 @@
 class QuestionsController < ApplicationController
   # 全ての質問を作成日降順で返す
   def index
-    questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').order(created_at: "DESC")
-    
+    questions = Question.includes(:tags, :user, :like).order(created_at: :desc)
     if questions
-      render json: { "questions" => questions }
+      render json: { "questions": build_questions(questions) }
     else
       render json: { message: "質問またはタグを受け取れませんでした。" }
     end
@@ -22,6 +21,7 @@ class QuestionsController < ApplicationController
   end
 
 
+  # マイページの質問
   def user
     puts current_user
     questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(user_id: current_user.id).order(created_at: "DESC")
@@ -97,6 +97,29 @@ class QuestionsController < ApplicationController
 
   private
   def receiveBody
-   JSON.parse(request.body.read, {:symbolize_names => true})
+    JSON.parse(request.body.read, {:symbolize_names => true})
+  end
+  # questionsオブジェクトを作る。
+  def build_questions(questions)
+    questions.each_with_object([]) do |question, arr|
+      # << は配列の末尾に追加するもの（ただし、一つしかいれられない=>複数追加したい場合、pushを使えばいい）
+      arr << question_content(question)
+    end
+  end
+
+  # 質問、タグをオブジェクトで返す。
+  def question_content(question)
+    {
+      title: question.title,
+      content: question.content,
+      anonymous: question.anonymous,
+      created_at: question.created_at,
+      updated_at: question.updated_at,
+      tags: question.tags.map { |tag| { name: tag.name} },
+      user_id: question.user.id,
+      user_name: question.user.name,
+      like_count: question.like.count,
+      like_id: question.like.id
+    }
   end
 end
