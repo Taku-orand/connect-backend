@@ -110,6 +110,7 @@ class QuestionsController < ApplicationController
   # 質問、タグをオブジェクトで返す。
   def question_content(question)
     {
+      id:question.id,
       title: question.title,
       content: question.content,
       anonymous: question.anonymous,
