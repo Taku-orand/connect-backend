@@ -11,10 +11,10 @@ class QuestionsController < ApplicationController
 
   # 質問の詳細を返す
   def show
-    question = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').find(params[:id])
+    question = Question.includes(:tags, :user, :like).find(params[:id])
     
     if question
-      render json: { "question" => question }
+      render json: { "question" => build_questions([question]) }
     else 
       render json: { message: "質問または返信を受け取れませんでした。" }
     end
