@@ -24,10 +24,10 @@ class QuestionsController < ApplicationController
   # マイページの質問
   def user
     puts current_user
-    questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(user_id: current_user.id).order(created_at: "DESC")
+    questions = Question.includes(:tags, :user, :like).where(user_id: current_user.id).order(created_at: "DESC")
     
     if questions
-      render json: { get_my_questions: true, questions: questions}
+      render json: { get_my_questions: true, questions: build_questions(questions)}
     else 
       render json: { get_my_questions: false}
     end
