@@ -11,10 +11,10 @@ class QuestionsController < ApplicationController
 
   # 質問の詳細を返す
   def show
-    question = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').find(params[:id])
+    question = Question.includes(:tags, :user, :like).find(params[:id])
     
     if question
-      render json: { "question" => question }
+      render json: { "question" => build_questions([question]) }
     else 
       render json: { message: "質問または返信を受け取れませんでした。" }
     end
@@ -24,10 +24,10 @@ class QuestionsController < ApplicationController
   # マイページの質問
   def user
     puts current_user
-    questions = Question.joins(:user, :like).select('questions.*, users.id as user_id, users.name as user_name, likes.count as like_count, likes.id as like_id').where(user_id: current_user.id).order(created_at: "DESC")
+    questions = Question.includes(:tags, :user, :like).where(user_id: current_user.id).order(created_at: "DESC")
     
     if questions
-      render json: { get_my_questions: true, questions: questions}
+      render json: { get_my_questions: true, questions: build_questions(questions)}
     else 
       render json: { get_my_questions: false}
     end
@@ -110,6 +110,7 @@ class QuestionsController < ApplicationController
   # 質問、タグをオブジェクトで返す。
   def question_content(question)
     {
+      id:question.id,
       title: question.title,
       content: question.content,
       anonymous: question.anonymous,
