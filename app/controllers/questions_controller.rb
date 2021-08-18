@@ -114,6 +114,7 @@ class QuestionsController < ApplicationController
       title: question.title,
       content: question.content,
       anonymous: question.anonymous,
+      solved: question.solved,
       created_at: question.created_at,
       updated_at: question.updated_at,
       tags: question.tags.map { |tag| { name: tag.name} },
