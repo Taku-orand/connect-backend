@@ -31,7 +31,10 @@ module Backend
     config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware
 
 
-    # クロスサイトでの通信でCookieの送信を制御します。
-    config.action_dispatch.cookies_same_site_protection = :none
+    if Rails.env.production?
+      # 本番環境のみの処理
+      # クロスサイトでの通信でCookieの送信を制御します。
+      config.action_dispatch.cookies_same_site_protection = :none
+    end
   end
 end

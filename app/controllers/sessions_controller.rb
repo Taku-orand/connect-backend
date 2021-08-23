@@ -10,21 +10,20 @@ class SessionsController < ApplicationController
     end
   end
 
-def signout
-  reset_session
-  render json: { status: 200, signed_out: true }
-end
-
-def signed_in?
-  if current_user
-    render json: { signed_in: true, user: current_user }
-  else
-    render json: { signed_in: false, message: 'ユーザーが存在しません' }
+  def signout
+    reset_session
+    render json: { status: 200, signed_out: true }
   end
-end
 
-private
+  def signed_in?
+    if current_user
+      render json: { signed_in: true, user: current_user }
+    else
+      render json: { signed_in: false, message: 'ユーザーが存在しません' }
+    end
+  end
 
+  private
   def session_params
     params.require(:user).permit(:username, :email, :password)
   end

@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  # 全タグを取得
   def index
     tags = Tag.all
     if tags
@@ -8,6 +9,7 @@ class TagsController < ApplicationController
     end
   end
 
+  # showメソッドは使ってない
   def show
     question_id = params[:id]
     question = Question.find_by(id: question_id)
@@ -19,30 +21,31 @@ class TagsController < ApplicationController
     end
   end
   
+  # タグを作成（createメソッドは使ってない）
   def create
     tag = receiveBody
     target = Tag.new(tag)
     begin
+      # タグ保存成功
       target.save!
-      puts "保存成功"
     rescue ActiveRecord::RecordInvalid => exception
-      puts exception
-      puts "保存失敗"
+      # タグ保存失敗
     end
   end
 
+  # タグを削除する
   def destroy
     tag_id = params[:id]
     target = Tag.find_by(id: tag_id)
     begin
+      # タグ削除成功
       target.destroy!
-      puts "保存成功"
     rescue ActiveRecord::RecordInvalid => exception
-      puts exception
-      puts "保存失敗"
+      # タグ削除失敗
     end
   end
 
+  # タグ名を編集
   def update
     tag_id = params[:id]
     tag = receiveBody
@@ -50,7 +53,7 @@ class TagsController < ApplicationController
     begin
       target.update!(name: tag[:name])
     rescue ActiveRecord::RecordInvalid=> exception
-      puts exception
+      # タグ編集失敗
     end
   end
   
